@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Липова алея</title>
+    <link rel="icon" type="image/x-icon" href="./assets/icon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Domine:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Unbounded:wght@200..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: url("./assets/bg.svg") no-repeat center center;
+        background-size: contain;
+      }
+      header {
+        text-align: center;
+        padding-top: 4rem;
+        padding-bottom: 1.5rem;
+        transition: padding-top 0.6 ease;
+
+        img.logo {
+          width: 14vw;
+          height: 27vh;
+          pointer-events: none;
+          user-select: none;
+          transition: transform 0.4s ease, width 0.6s ease;
+        }
+
+        @media (max-width: 600px) {
+          img.logo {
+            width: 32vw;
+          }
+        }
+      }
+      @media (max-width: 600px) {
+        header {
+          padding-top: 2rem;
+        }
+      }
+      main {
+        padding: 20px;
+        padding-left: 30px;
+      }
+      nav ul {
+        font-family: "Montserrat", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: normal;
+        font-style: normal;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5em;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        transform: translateY(-10px);
+        opacity: 0;
+        transition: opacity 0.2s ease, transform 0.4s ease, gap 0.2s ease;
+
+        &.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        li {
+          margin: 0 10px;
+          background-color: #fff;
+          border: 4.5px solid #333;
+          padding: 12px 16px;
+          width: 220px;
+          text-align: center;
+          cursor: pointer;
+          text-decoration: dashed;
+          box-shadow: 5px 4px 6px #2b2a2a;
+          outline: none;
+          transition: background-color 0.2s ease, box-shadow 0.2s ease;
+
+          a {
+            text-decoration: none;
+            color: #333;
+            font-size: 22px;
+            text-transform: uppercase;
+            margin-left: -10px;
+          }
+
+          img {
+            float: left;
+          }
+
+          &:hover,
+          &:focus,
+          &:active {
+            animation: hoverAnimation 0.4s ease-in-out forwards;
+            background-color: #333;
+            box-shadow: none;
+
+            a {
+              color: #fff;
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+
+      @keyframes hoverAnimation {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1.05);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img class="logo" src="./assets/logo.svg" alt="Linden alley" />
+    </header>
+    <main>
+      <section>
+        <nav>
+          <ul>
+            <li tabindex="0">
+              <img src="./assets/facebook.svg" />
+              <a
+                tabindex="-1"
+                target="_blank"
+                href="https://www.facebook.com/profile.php?id=61569163542024"
+                >Facebook</a
+              >
+            </li>
+            <li tabindex="0">
+              <img src="./assets/instagram.svg" />
+              <a
+                tabindex="-1"
+                target="_blank"
+                href="https://www.instagram.com/linden_alley_"
+                >Instagram</a
+              >
+            </li>
+            <li tabindex="0">
+              <img src="./assets/mail.svg" />
+              <a
+                tabindex="-1"
+                target="_blank"
+                href="mailto:lindenaley@gmail.com"
+                >Пошта</a
+              >
+            </li>
+            <li tabindex="0">
+              <img src="./assets/phone.svg" />
+              <a tabindex="-1" target="_blank" href="tel:+380688459150"
+                >Дзвінок</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </section>
+    </main>
+
+    <script defer>
+      let resizeTimeout;
+      const nav = document.querySelector("nav ul");
+      const logo = document.querySelector(".logo");
+      const links = nav.querySelectorAll("li");
+
+      links.forEach((li) => {
+        li.addEventListener("click", (e) => {
+          if (e.target.tagName === "A") return;
+
+          e.preventDefault();
+
+          const url = e.target.querySelector("a").href;
+          window.open(url, "_blank");
+        });
+
+        li.addEventListener("keydown", (e) => {
+          if (e.target.tagName === "A" && e.key === "Enter") return;
+
+          if (e.key !== "Enter") return;
+
+          const link = li.querySelector("a");
+
+          if (link) link.click();
+        });
+
+        li.addEventListener("mouseover", (e) => toggleSocialIcon(e, true));
+        li.addEventListener("focus", (e) => toggleSocialIcon(e, true));
+        li.addEventListener("mouseleave", (e) => toggleSocialIcon(e, false));
+        li.addEventListener("blur", (e) => toggleSocialIcon(e, false));
+      });
+
+      window.addEventListener("resize", () => {
+        clearTimeout(resizeTimeout);
+
+        links.forEach((link) => (link.style.width = "240px"));
+        nav.style.gap = "1.8em";
+        logo.style.transform = "translateY(-12px)";
+
+        resizeTimeout = setTimeout(() => reset(), 50);
+      });
+
+      document.addEventListener("DOMContentLoaded", () =>
+        setTimeout(() => nav.classList.add("visible"), 100)
+      );
+
+      function reset() {
+        nav.style.gap = "1.5em";
+        links.forEach((li) => (li.style.width = "220px"));
+        logo.style.transform = "translateY(0)";
+      }
+
+      function toggleSocialIcon(e, isActive) {
+        const isHoverEvent = e.type === "mouseover" || e.type === "mouseleave";
+        const isFocused = e.target === document.activeElement;
+
+        if (isHoverEvent && isFocused) return;
+
+        e.preventDefault();
+        const img = e.target.querySelector("img");
+
+        if (img) {
+          const baseIcon = img.src
+            .split("assets/")[1]
+            ?.replace(/-white/, "")
+            .replace(/\.[^/.]+$/, "");
+
+          img.src = `./assets/${baseIcon}${isActive ? "-white" : ""}.svg`;
+        }
+      }
+    </script>
+  </body>
+</html>
