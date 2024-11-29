@@ -201,8 +201,17 @@
           if (link) link.click();
         });
 
-        li.addEventListener("mouseover", (e) => toggleSocialIcon(e, true));
-        li.addEventListener("mouseleave", (e) => toggleSocialIcon(e, false));
+        li.addEventListener("mouseover", (e) => {
+          toggleSocialIcon(e, true);
+
+          const focused = document.querySelector("li:focus");
+
+          if (focused) focused.blur();
+        });
+        li.addEventListener("mouseleave", (e) => {
+          toggleSocialIcon(e, false);
+          e.target.blur();
+        });
         li.addEventListener(startEvent, (e) => toggleSocialIcon(e, true));
         li.addEventListener(endEvent, (e) => toggleSocialIcon(e, false));
       });
