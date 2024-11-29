@@ -177,15 +177,9 @@
       const logo = document.querySelector(".logo");
       const links = nav.querySelectorAll("li");
 
-      const isTouchDevice = "ontouchstart" in window;
-      const startEvent = isTouchDevice ? "touchstart" : "focus";
-      const endEvent = isTouchDevice ? "touchend" : "blur";
-
       links.forEach((li) => {
         li.addEventListener("click", (e) => {
           if (e.target.tagName === "A") return;
-
-          if (!isTouchDevice) e.preventDefault();
 
           const url = e.target.querySelector("a").href;
           window.open(url, "_blank");
@@ -212,8 +206,12 @@
           toggleSocialIcon(e, false);
           e.target.blur();
         });
-        li.addEventListener(startEvent, (e) => toggleSocialIcon(e, true));
-        li.addEventListener(endEvent, (e) => toggleSocialIcon(e, false));
+        li.addEventListener("focus", (e) => toggleSocialIcon(e, true));
+        li.addEventListener("blur", (e) => {
+          const isHovered = e.target.matches(":hover");
+
+          !isHovered && toggleSocialIcon(e, false);
+        });
       });
 
       window.addEventListener("resize", () => {
