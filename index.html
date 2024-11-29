@@ -209,11 +209,19 @@
         });
         li.addEventListener("focus", (e) => toggleSocialIcon(e, true));
         li.addEventListener("blur", (e) => {
-          const isHovered = e.target.matches(":hover");
+          const isMobile = window.ontouchstart;
 
-          if (!window.ontouchstart && !isHovered) {
-            toggleSocialIcon(e, false);
+          if (!isMobile) {
+            const isHovered = e.target.matches(":hover");
+
+            if (!isHovered) {
+              toggleSocialIcon(e, false);
+            }
+
+            return;
           }
+
+          toggleSocialIcon(e, false);
         });
       });
 
