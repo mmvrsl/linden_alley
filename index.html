@@ -223,6 +223,13 @@
 
           toggleSocialIcon(e, false);
         });
+
+        const link = li.querySelector("a");
+        if (link && (link.href.startsWith("tel:") || link.href.startsWith("mailto:"))) {
+          link.addEventListener("blur", (e) => {
+            toggleSocialIcon({ target: li }, false);
+          });
+        }
       });
 
       window.addEventListener("resize", () => {
