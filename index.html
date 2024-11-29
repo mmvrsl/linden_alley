@@ -185,7 +185,7 @@
         li.addEventListener("click", (e) => {
           if (e.target.tagName === "A") return;
 
-          e.preventDefault();
+          if (!isTouchDevice) e.preventDefault();
 
           const url = e.target.querySelector("a").href;
           window.open(url, "_blank");
