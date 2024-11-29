@@ -198,9 +198,16 @@
         });
 
         li.addEventListener("mouseover", (e) => toggleSocialIcon(e, true));
-        li.addEventListener("focus", (e) => toggleSocialIcon(e, true));
         li.addEventListener("mouseleave", (e) => toggleSocialIcon(e, false));
-        li.addEventListener("blur", (e) => toggleSocialIcon(e, false));
+        li.addEventListener("click", (e) => e.target.blur());
+
+        if (!("ontouchstart" in window)) {
+          li.addEventListener("focus", (e) => toggleSocialIcon(e, true));
+          li.addEventListener("blur", (e) => toggleSocialIcon(e, false));
+        } else {
+          li.addEventListener("touchstart", (e) => toggleSocialIcon(e, true));
+          li.addEventListener("touchend", (e) => toggleSocialIcon(e, false));
+        }
       });
 
       window.addEventListener("resize", () => {
