@@ -211,7 +211,9 @@
         li.addEventListener("blur", (e) => {
           const isHovered = e.target.matches(":hover");
 
-          !isHovered && toggleSocialIcon(e, false);
+          if (!window.ontouchstart && !isHovered) {
+            toggleSocialIcon(e, false);
+          }
         });
       });
 
