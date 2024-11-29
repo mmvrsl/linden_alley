@@ -183,6 +183,7 @@
 
           const url = e.target.querySelector("a").href;
           window.open(url, "_blank");
+          li.blur(); 
         });
 
         li.addEventListener("keydown", (e) => {
