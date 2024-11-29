@@ -98,8 +98,7 @@
           }
 
           &:hover,
-          &:focus,
-          &:active {
+          &:focus {
             animation: hoverAnimation 0.4s ease-in-out forwards;
             background-color: #333;
             box-shadow: none;
@@ -183,7 +182,7 @@
 
           const url = e.target.querySelector("a").href;
           window.open(url, "_blank");
-          li.blur(); 
+          li.blur();
         });
 
         li.addEventListener("keydown", (e) => {
