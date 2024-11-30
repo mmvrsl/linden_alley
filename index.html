@@ -223,7 +223,15 @@
           }
         });
 
-        li.addEventListener("touchend", (e) => li.blur());
+        li.addEventListener("touchstart", (e) => {
+          li.classList.remove("hover", "focus");
+        });
+
+        li.addEventListener("touchend", (e) => {
+          li.blur();
+          const mouseLeaveEvent = new Event('mouseleave');
+          li.dispatchEvent(mouseLeaveEvent);
+        });
       });
 
       window.addEventListener("resize", () => {
