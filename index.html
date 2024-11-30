@@ -95,6 +95,7 @@
 
           img {
             float: left;
+            transition: filter 0.2s ease;
           }
 
           &:hover,
@@ -107,6 +108,10 @@
             a {
               color: #fff;
               text-decoration: underline;
+            }
+
+            img {
+              filter: invert(1);
             }
           }
         }
@@ -199,17 +204,14 @@
         });
 
         li.addEventListener("mouseover", (e) => {
-          toggleSocialIcon(e, true);
-
           const focused = document.querySelector("li:focus");
 
           if (focused) focused.blur();
         });
         li.addEventListener("mouseleave", (e) => {
-          toggleSocialIcon(e, false);
           e.target.blur();
         });
-        li.addEventListener("focus", (e) => toggleSocialIcon(e, true));
+        li.addEventListener("focus", (e) => {});
         li.addEventListener("blur", (e) => {
           const isMobile = window.ontouchstart;
 
@@ -217,13 +219,9 @@
             const isHovered = e.target.matches(":hover");
 
             if (!isHovered) {
-              toggleSocialIcon(e, false);
+              return;
             }
-
-            return;
           }
-
-          toggleSocialIcon(e, false);
         });
       });
 
@@ -245,25 +243,6 @@
         nav.style.gap = "1.5em";
         links.forEach((li) => (li.style.width = "220px"));
         logo.style.transform = "translateY(0)";
-      }
-
-      function toggleSocialIcon(e, isActive) {
-        const isHoverEvent = e.type === "mouseover" || e.type === "mouseleave";
-        const isFocused = e.target === document.activeElement;
-
-        if (isHoverEvent && isFocused) return;
-
-        e.preventDefault();
-        const img = e.target.querySelector("img");
-
-        if (img) {
-          const baseIcon = img.src
-            .split("assets/")[1]
-            ?.replace(/-white/, "")
-            .replace(/\.[^/.]+$/, "");
-
-          img.src = `./assets/${baseIcon}${isActive ? "-white" : ""}.svg`;
-        }
       }
     </script>
   </body>
