@@ -181,9 +181,11 @@
         li.addEventListener("click", (e) => {
           if (e.target.tagName === "A") return;
 
-          const url = e.target.querySelector("a").href;
-          window.open(url, "_blank");
-          li.blur();
+          const link = e.target.closest("li").querySelector("a");
+          if (link) {
+            window.open(link.href, "_blank");
+            li.blur();
+          }
         });
 
         li.addEventListener("keydown", (e) => {
