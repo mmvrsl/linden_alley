@@ -99,8 +99,7 @@
           }
 
           &:hover,
-          &:focus,
-          &:active {
+          &:focus {
             animation: hoverAnimation 0.4s ease-in-out forwards;
             background-color: #333;
             box-shadow: none;
@@ -223,6 +222,8 @@
             }
           }
         });
+
+        li.addEventListener("touchend", (e) => li.blur());
       });
 
       window.addEventListener("resize", () => {
