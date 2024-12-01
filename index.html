@@ -98,7 +98,8 @@
             transition: filter 0.2s ease;
           }
 
-          &:hover {
+          &:hover,
+          &:focus {
             animation: hoverAnimation 0.4s ease-in-out forwards;
             background-color: #333;
             box-shadow: none;
@@ -182,13 +183,12 @@
 
       links.forEach((li) => {
         li.addEventListener("click", (e) => {
-          li.blur();
           if (e.target.tagName === "A") return;
 
           const link = e.target.closest("li").querySelector("a");
           if (link) {
             window.open(link.href, "_blank");
-            // li.blur();
+            li.blur();
           }
         });
 
@@ -229,7 +229,7 @@
 
         li.addEventListener("touchend", (e) => {
           li.blur();
-          const mouseLeaveEvent = new Event('mouseleave');
+          const mouseLeaveEvent = new Event("mouseleave");
           li.dispatchEvent(mouseLeaveEvent);
         });
       });
