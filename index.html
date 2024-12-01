@@ -183,12 +183,13 @@
 
       links.forEach((li) => {
         li.addEventListener("click", (e) => {
+          li.blur();
           if (e.target.tagName === "A") return;
 
           const link = e.target.closest("li").querySelector("a");
           if (link) {
             window.open(link.href, "_blank");
-            li.blur();
+            // li.blur();
           }
         });
 
