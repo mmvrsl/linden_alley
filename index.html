@@ -85,6 +85,21 @@
           outline: none;
           transition: background-color 0.2s ease, box-shadow 0.2s ease;
 
+          &.hovered {
+            animation: hoverAnimation 0.4s ease-in-out forwards;
+            background-color: #333;
+            box-shadow: none;
+
+            a {
+              color: #fff;
+              text-decoration: underline;
+            }
+
+            img {
+              filter: invert(1);
+            }
+          }
+
           a {
             text-decoration: none;
             color: #333;
@@ -98,7 +113,23 @@
             transition: filter 0.2s ease;
           }
 
-          &:hover,
+          @media (hover: hover) {
+            &:hover {
+              animation: hoverAnimation 0.4s ease-in-out forwards;
+              background-color: #333;
+              box-shadow: none;
+
+              a {
+                color: #fff;
+                text-decoration: underline;
+              }
+
+              img {
+                filter: invert(1);
+              }
+            }
+          }
+
           &:focus {
             animation: hoverAnimation 0.4s ease-in-out forwards;
             background-color: #333;
@@ -210,27 +241,25 @@
         li.addEventListener("mouseleave", (e) => {
           e.target.blur();
         });
-        li.addEventListener("focus", (e) => {});
-        li.addEventListener("blur", (e) => {
-          const isMobile = window.ontouchstart;
+        // li.addEventListener("focus", (e) => {});
+        // li.addEventListener("blur", (e) => {
+        //   const isMobile = window.ontouchstart;
 
-          if (!isMobile) {
-            const isHovered = e.target.matches(":hover");
+        //   if (!isMobile) {
+        //     const isHovered = e.target.matches(":hover");
 
-            if (!isHovered) {
-              return;
-            }
-          }
-        });
+        //     if (!isHovered) {
+        //       return;
+        //     }
+        //   }
+        // });
 
         li.addEventListener("touchstart", (e) => {
-          li.classList.remove("hover", "focus");
+          li.classList.add("hovered");
         });
 
         li.addEventListener("touchend", (e) => {
-          li.blur();
-          const mouseLeaveEvent = new Event("mouseleave");
-          li.dispatchEvent(mouseLeaveEvent);
+          li.classList.remove("hovered");
         });
       });
 
